@@ -1,4 +1,5 @@
-﻿using NAudio.CoreAudioApi;
+﻿using Melanchall.DryWetMidi.Devices;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace AudioTrigger.ViewModels
     {
         private Tuple<int, string> m_SelectedAudioInput;
         private ObservableCollection<Tuple<int, string>> m_AudioInputOptions;
+        private ObservableCollection<OutputDevice> m_MidiOutputOptions;
+        private OutputDevice m_SelectedMidiOutput;
+
         //private float m_AudioLevel;
         //private bool m_IsRecording;
         //private float m_MaxSample;
@@ -42,6 +46,26 @@ namespace AudioTrigger.ViewModels
             }
         }
 
+        public ObservableCollection<OutputDevice> MidiOutputOptions
+        {
+            get { return m_MidiOutputOptions; }
+            set
+            {
+                m_MidiOutputOptions = value;
+                OnPropertyChanged(nameof(MidiOutputOptions));
+            }
+        }
+
+        public OutputDevice SelectedMidiOutput
+        {
+            get { return m_SelectedMidiOutput; }
+            set
+            {
+                m_SelectedMidiOutput = value;
+                OnPropertyChanged(nameof(SelectedMidiOutput));
+            }
+        }
+
         //public float AudioLevel
         //{
         //    get { return m_AudioLevel; }
@@ -55,6 +79,7 @@ namespace AudioTrigger.ViewModels
         public MainViewModel()
         {
             InitialiseAudioDevices();
+            InitialiseMidiDevices();
         }
 
         private void InitialiseAudioDevices()
@@ -68,6 +93,12 @@ namespace AudioTrigger.ViewModels
             }
 
             SelectedAudioInput = m_AudioInputOptions.FirstOrDefault();
+        }
+
+        private void InitialiseMidiDevices()
+        {
+            m_MidiOutputOptions = new ObservableCollection<OutputDevice>(OutputDevice.GetAll());
+            SelectedMidiOutput = m_MidiOutputOptions.FirstOrDefault();
         }
 
         //private void StartListening()

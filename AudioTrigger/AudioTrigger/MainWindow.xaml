@@ -27,6 +27,12 @@
                       SelectedItem="{Binding SelectedAudioInput}"
                       DisplayMemberPath="Item2"/>
 
+            <Label Grid.Row="1" Content="MIDI Output"/>
+            <ComboBox Grid.Column="1" Grid.Row="1"
+                      ItemsSource="{Binding MidiOutputOptions}"
+                      SelectedItem="{Binding SelectedMidiOutput}"
+                      DisplayMemberPath="Name"/>
+
             <!--<Label Content="Level" Grid.Row="1"/>
             <ProgressBar Value="{Binding AudioLevel}" Grid.Row="1" Grid.Column="1">
                 <ProgressBar.Style>
